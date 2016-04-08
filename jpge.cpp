@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <cmath>
 
 #if defined(_OPENMP)
 #include <omp.h>
@@ -666,18 +667,18 @@ void image::load_block(dct_t *pDst, int x, int y)
 
 inline dct_t image::blend_dual(int x, int y, image &luma)
 {
-    dct_t a = 64 + 129-abs(luma.get_px(x,  y));
-    dct_t b = 64 + 129-abs(luma.get_px(x+1,y));
+    dct_t a = 64 + 129-fabs(luma.get_px(x,  y));
+    dct_t b = 64 + 129-fabs(luma.get_px(x+1,y));
     return (get_px(x,  y)*a
           + get_px(x+1,y)*b) / (a+b);
 }
 
 inline dct_t image::blend_quad(int x, int y, image &luma)
 {
-    dct_t a = 64 + 129-abs(luma.get_px(x,  y  ));
-    dct_t b = 64 + 129-abs(luma.get_px(x+1,y  ));
-    dct_t c = 64 + 129-abs(luma.get_px(x,  y+1));
-    dct_t d = 64 + 129-abs(luma.get_px(x+1,y+1));
+    dct_t a = 64 + 129-fabs(luma.get_px(x,  y  ));
+    dct_t b = 64 + 129-fabs(luma.get_px(x+1,y  ));
+    dct_t c = 64 + 129-fabs(luma.get_px(x,  y+1));
+    dct_t d = 64 + 129-fabs(luma.get_px(x+1,y+1));
     return  (get_px(x,  y  )*a
            + get_px(x+1,y  )*b
            + get_px(x,  y+1)*c
